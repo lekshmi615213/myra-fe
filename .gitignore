@@ -1,0 +1,10 @@
+/target
+/checkouts
+/.lein-*
+/.nrepl-port
+/resources/public/js
+/*-init.clj
+/*.log
+out
+figwheel_server.log
+.DS_Store

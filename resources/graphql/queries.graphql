@@ -1,0 +1,153 @@
+query CurrentAccount {
+  currentAccount {
+     ...accountFields
+  }
+}
+
+query FutureGigs($pagination: PaginationInput!) {
+  gigs: futureGigs(pagination: $pagination) {
+    ...gigFields
+}
+}
+
+query GigById($id: ID!) {
+  gigById(id: $id) {
+    ...gigFields
+  }
+}
+
+query GigsByMonth($year: Int!, $month:Int!, $pagination: PaginationInput!, $timezone: String!) {
+  gigs: gigsByMonth(year: $year, month: $month, pagination: $pagination, timezone: $timezone) {
+    ...gigFields
+  }
+}
+
+query ProfileById($id: ID!) {
+  profileById(id: $id) {
+    ...profileFields
+  }
+}
+
+mutation UpdateProfile($profile: ProfileInput!) {
+  updateProfile(profile: $profile) {
+    success
+    profile {
+      ...profileFields
+    }
+  }
+}
+
+mutation Login($credentials: CredentialsInput!) {
+  login(credentials: $credentials) {
+    ...sessionFields
+  }
+}
+
+mutation Register($credentials: CredentialsInput!, $profile: ProfileInput!) {
+  register(credentials: $credentials, profile:$profile) {
+    ...sessionFields
+  }
+}
+
+mutation CreateGig($gig: GigInput!) {
+  gig: createGig(gig: $gig) {
+    gig {
+      ...gigFields
+    }
+  }
+}
+
+mutation UpdateGig($gig: GigInput!, $id: ID!) {
+  gig: updateGig(gig:$gig, id:$id) {
+    gig {
+      ...gigFields
+    }
+  }
+}
+
+mutation ClaimGig($id: ID!) {
+  gig: claimGig(id:$id) {
+    gig {
+      ...gigFields
+    }
+  }
+}
+
+mutation CancelClaimedGig($id: ID!) {
+  gig: cancelClaimedGig(id:$id) {
+    gig {
+      ...gigFields
+    }
+  }
+}
+
+fragment accountFields on Account {
+  id
+  email
+  profile {
+    ...profileFields
+  }
+}
+
+fragment gigFields on Gig {
+  id
+  notes
+  state
+  startDatetime
+  endDatetime
+  activeThreadId
+  employee {
+    ...profileFields
+  }
+  handler {
+    ...profileFields
+  }
+  
+}
+
+fragment profileFields on Profile {
+  id
+  fullName
+  phoneNumber
+  type
+  department
+  avatarUrl
+}
+
+fragment sessionFields on Session {
+  token
+  account {
+    ...accountFields
+  }
+}
+
+
+query GetThreadMessages($messageThreadId: ID, $pagination: PaginationInput!) {
+  getThreadMessages(messageThreadId: $messageThreadId, pagination: $pagination) {
+    ...messageFields
+  }
+}
+
+mutation CreateMessage($body: String!, $messageThreadId: ID!) {
+  createMessage(body: $body, messageThreadId: $messageThreadId) {
+    success
+    message {
+      ...messageFields
+    }
+  }
+}
+
+query MessageById($id: ID!) {
+  messageById(id: $id) {
+    ...messageFields
+  }
+}
+
+fragment messageFields on Message {
+  id
+  body
+  messageThreadId
+  sender {
+    id
+  }
+}
