@@ -2,8 +2,8 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.9.946"]
                  [reagent "0.7.0"]
-                 [keechma "0.3.2" :exclusions [cljsjs/react-with-addons]]
-                 [keechma/toolbox "0.1.7" :exclusions [cljsjs/react-dom]]
+                 [keechma "0.3.6" :exclusions [cljsjs/react-with-addons]]
+                 [keechma/toolbox "0.1.12" :exclusions [cljsjs/react-dom cljsjs/react-with-addons]]
                  [org.clojars.mihaelkonjevic/garden-basscss "0.2.1"]
                  [keechma/entitydb "0.1.4"]
                  [floatingpointio/graphql-builder "0.1.4"]
@@ -31,11 +31,11 @@
   :profiles
   {:dev
    {:dependencies [
-                   [figwheel-sidecar "0.5.10"]
+                   [figwheel-sidecar "0.5.15"]
                    [com.cemerick/piggieback "0.2.1"]
                    [binaryage/devtools "0.8.2"]]
 
-    :plugins      [[lein-figwheel "0.5.14"]
+    :plugins      [[lein-figwheel "0.5.15"]
                    [lein-doo "0.1.7"]]}}
 
   :cljsbuild

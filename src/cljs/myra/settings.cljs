@@ -2,10 +2,11 @@
 
 (def settings
   {:jwt-name     "myra-jwt"
-   :gql-endpoint {:dev  "http://localhost:4000/api/graphql"
-                  :prod "https://tranquil-falls-15561.herokuapp.com/api/graphql"}})
+   :gql-endpoint {:dev  "https://dry-spire-96871.herokuapp.com/api/graphql" ;;"https://dry-spire-96871.herokuapp.com/api/graphql"
+                  :prod "https://dry-spire-96871.herokuapp.com/api/graphql"}})
 
 (def websocket-endpoint
   (if js/goog.DEBUG
-    "ws://localhost:4000/socket"
-    "wss://tranquil-falls-15561.herokuapp.com/socket"))
+    ;"ws://dry-spire-96871.herokuapp.com/socket"
+    "wss://dry-spire-96871.herokuapp.com/socket"
+    "wss://dry-spire-96871.herokuapp.com/socket"))

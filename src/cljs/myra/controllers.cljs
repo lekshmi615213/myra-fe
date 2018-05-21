@@ -10,12 +10,14 @@
             [keechma.toolbox.forms.mount-controller :as forms-mount-controller]
             [myra.controllers.image-upload :as image-upload]
             [myra.forms :as forms]
-            [myra.controllers.modal :as modal]))
+            [myra.controllers.modal :as modal]
+            [myra.controllers.handler-gig-actions :as handler-gig-actions]))
 
 (def controllers
   (-> {:initializer          initializer/controller
        :logout               logout/controller
        :employee-gig-actions employee-gig-actions/controller
+       :handler-gig-actions  handler-gig-actions/controller
        :modal                modal/controller
        :messaging            (messaging/->Controller)
        :image-upload         image-upload/controller}

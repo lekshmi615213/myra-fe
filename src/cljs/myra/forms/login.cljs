@@ -14,7 +14,9 @@
   {:credentials (select-keys data [:email :password])})
 
 (defmethod forms-core/submit-data LoginForm [_ app-db _ data]
-  (gql-req gql/login-m (prepare-data data)))
+  (pipeline! [value app-db]
+    (gql-req gql/login-m (prepare-data data))
+    (rescue! [error])))
 
 (defmethod forms-core/on-submit-success LoginForm [this app-db form-props data]
   (let [{:keys [token account]} (:login data)]
@@ -23,7 +25,8 @@
       (pp/commit! (-> app-db
                       (assoc-in [:kv :jwt] token)
                       (edb/insert-named-item :account :current account)))
-      (pp/redirect! {}))))
+      (pp/redirect! {})
+      (rescue! [error]))))
 
 (defn constructor []
   (->LoginForm (v/to-validator {:email    [:not-empty :email]

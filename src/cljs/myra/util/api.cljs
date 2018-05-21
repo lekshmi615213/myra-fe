@@ -16,8 +16,9 @@
 
 (defn gql-results-handler [unpack]
   (fn [{:keys [data errors]}]
-    (if errors
-      (throw (ex-info "GraphQLError" errors))
+    (def error (get-in errors [0 :message]))
+    (if errors      
+      (throw (ex-info error errors))
       (unpack data))))
 
 (defn gql-req

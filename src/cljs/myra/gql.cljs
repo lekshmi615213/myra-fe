@@ -28,3 +28,5 @@
 (def cancel-claimed-gig-m (get-mutation q-map :cancel-claimed-gig))
 (def create-message-m (get-mutation q-map :create-message))
 (def update-profile-m (get-mutation q-map :update-profile))
+(def delete-gig-m (get-mutation q-map :delete-gig))
+(def change-password-m (get-mutation q-map :change-password))

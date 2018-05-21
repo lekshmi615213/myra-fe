@@ -46,8 +46,8 @@
       (pp/commit! (edb/insert-item app-db :profile profile))
       (pp/redirect! {:page "profile"}))))
 
-(defn constructor [] 
+(defn constructor []
   (->ProfileForm (v/to-validator {:email       [:not-empty :email]
                                   :fullName    [:not-empty]
                                   :department  [:not-empty]
-                                  :phoneNumber [:not-empty]})))
+                                  :phoneNumber [:not-empty :phone]})))

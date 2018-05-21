@@ -34,19 +34,20 @@
 
 (defn render [ctx {:keys [id]}]
   (when-let [current-modal (sub> ctx :current-modal)]
-    [-modal-wrapper
-     {:on-click (fn [e]
-                  (let [target (.-target e)
-                        current-target (.-currentTarget e)]
-                    (when (= target current-target)
-                      (<cmd ctx [:modal :toggle] current-modal))))}
+    (let [current-gig (sub> ctx :current-gig)]
+      [-modal-wrapper
+       {:on-click (fn [e]
+                    (let [target (.-target e)
+                          current-target (.-currentTarget e)]
+                      (when (= target current-target)
+                        (<cmd ctx [:modal :toggle] current-modal))))}
 
-     [-modal-box
-      [(ui/component ctx current-modal) {:close-modal (fn [] (<cmd ctx [:modal :toggle] current-modal))}]]]))
+       [-modal-box
+        [(ui/component ctx current-modal) {:close-modal (fn [] (<cmd ctx [:modal :toggle] current-modal))}]]])))
 
 (def component
   (ui/constructor {:renderer render
-                   :subscription-deps [:current-modal]
+                   :subscription-deps [:current-modal :current-gig]
                    :component-deps [:modal-cancel-gig
                                     :modal-remove-gig
                                     :modal-late-gig

@@ -1,13 +1,13 @@
 query CurrentAccount {
   currentAccount {
-     ...accountFields
+    ...accountFields
   }
 }
 
 query FutureGigs($pagination: PaginationInput!) {
   gigs: futureGigs(pagination: $pagination) {
     ...gigFields
-}
+  }
 }
 
 query GigById($id: ID!) {
@@ -16,7 +16,7 @@ query GigById($id: ID!) {
   }
 }
 
-query GigsByMonth($year: Int!, $month:Int!, $pagination: PaginationInput!, $timezone: String!) {
+query GigsByMonth($year: Int!, $month: Int!, $pagination: PaginationInput!, $timezone: String!) {
   gigs: gigsByMonth(year: $year, month: $month, pagination: $pagination, timezone: $timezone) {
     ...gigFields
   }
@@ -44,7 +44,7 @@ mutation Login($credentials: CredentialsInput!) {
 }
 
 mutation Register($credentials: CredentialsInput!, $profile: ProfileInput!) {
-  register(credentials: $credentials, profile:$profile) {
+  register(credentials: $credentials, profile: $profile) {
     ...sessionFields
   }
 }
@@ -58,7 +58,7 @@ mutation CreateGig($gig: GigInput!) {
 }
 
 mutation UpdateGig($gig: GigInput!, $id: ID!) {
-  gig: updateGig(gig:$gig, id:$id) {
+  gig: updateGig(gig: $gig, id: $id) {
     gig {
       ...gigFields
     }
@@ -66,7 +66,15 @@ mutation UpdateGig($gig: GigInput!, $id: ID!) {
 }
 
 mutation ClaimGig($id: ID!) {
-  gig: claimGig(id:$id) {
+  gig: claimGig(id: $id) {
+    gig {
+      ...gigFields
+    }
+  }
+}
+
+mutation DeleteGig($id: ID!) {
+  gig: deleteGig(id: $id) {
     gig {
       ...gigFields
     }
@@ -74,7 +82,7 @@ mutation ClaimGig($id: ID!) {
 }
 
 mutation CancelClaimedGig($id: ID!) {
-  gig: cancelClaimedGig(id:$id) {
+  gig: cancelClaimedGig(id: $id) {
     gig {
       ...gigFields
     }
@@ -96,13 +104,13 @@ fragment gigFields on Gig {
   startDatetime
   endDatetime
   activeThreadId
+  department
   employee {
     ...profileFields
   }
   handler {
     ...profileFields
   }
-  
 }
 
 fragment profileFields on Profile {
@@ -120,7 +128,6 @@ fragment sessionFields on Session {
     ...accountFields
   }
 }
-
 
 query GetThreadMessages($messageThreadId: ID, $pagination: PaginationInput!) {
   getThreadMessages(messageThreadId: $messageThreadId, pagination: $pagination) {
@@ -150,4 +157,8 @@ fragment messageFields on Message {
   sender {
     id
   }
+}
+
+mutation ChangePassword($password: String!, $newPassword: String!) {
+  changePassword(password: $password, newPassword: $newPassword)
 }

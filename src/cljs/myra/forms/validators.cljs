@@ -26,8 +26,11 @@
 (defn url? [v _ _]
   (not (nil? (re-matches url-regex (str v)))))
 
-(defn email? [v _ _] 
-  (not (nil? (re-matches email-regex (str v)))))
+(defn email? [v _ _]
+   (if (not (not-empty? v nil nil))
+    true
+    (re-matches email-regex (str v))
+  ))
 
 (defn edu-email? [v _ _]
   (if (nil? v)
@@ -46,9 +49,18 @@
     (or (= true v) (= false v))))
 
 (defn numeric? [v _ _]
-  (if (nil? v)
+  (if (not (not-empty? v nil nil))
     true
     (re-matches #"^\d+$" v)))
+
+(defn valid-phone? [v _ _]
+  (if (seq v)
+    (
+    and (re-matches #"^\d+$" v)
+        (< 7 (count v))
+        (> 13 (count v))
+    )
+    true))
 
 (defn ok-password? [v _ _]
   (if (seq v)
@@ -65,6 +77,9 @@
     (or (= 3 (count v))
         (= 4 (count v)))
     true))
+
+
+
 
 
 (defn valid-zipcode? [v _ _]
@@ -89,7 +104,7 @@
    :url                {:message   "Value is not a valid URL"
                         :validator url?}
    :email              {:message   "Value is not a valid email"
-                        :validator email?} 
+                        :validator email?}
    :edu-email          {:message   "Not a valid .edu email"
                         :validator edu-email?}
    :email-confirmation {:message   "Email doesn't match email confirmation"
@@ -99,18 +114,20 @@
                                        (if (some nil? [email email-confirmation])
                                          true
                                          (= email email-confirmation))))}
-   
+
    :password-confirmation {:message   "Passwords don't match"
                            :validator password-confirmation}
    :ok-password           {:message   "Password must have at least 8 characters"
                            :validator ok-password?}
    :numeric               {:message   "Value is not a number"
                            :validator numeric?}
+   :phone                 {:message   "Value is not a valid phone number"
+                           :validator valid-phone?}
    :valid-state           {:message   "Not a valid US state"
                            :validator valid-state?}
    :valid-zipcode         {:message   "Not a valid Zipcode"
                            :validator valid-zipcode?}
-   
+
    :0>                     {:message   "Must be bigger than zero"
                             :validator (fn [v _ _]
                                          (if (not (not-empty? v nil nil))

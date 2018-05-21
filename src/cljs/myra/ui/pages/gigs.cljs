@@ -7,7 +7,12 @@
             [myra.ui.components.typography :refer [-title-xl]]
             [myra.ui.components.inputs :refer [-btn-default -btn-default-link -btn-alt -input -textarea]]
             [myra.domain.gig :as gig]
-            [myra.util :as util]))
+            [myra.util :as util]
+            [cljsjs.moment]
+            [oops.core :refer [ocall]]))
+
+(defn starts-in-future? [gig-start-date-time]
+  (ocall (js/moment) "isBefore" gig-start-date-time))
 
 (defelement -gig
   :tag :li
@@ -70,25 +75,9 @@
     [:div
      [-title-xl "Your gig history"]
      [:div.flex.justify-around.items-center.h2.max-width-2.mx-auto
-      [:a.c-black.text-decoration-none {:href (ui/url ctx (next-month-url current-route))} "<"]
+      [:a.c-black.text-decoration-none {:href (ui/url ctx (prev-month-url current-route))} "<"]
       [:span.c-black (current-month-title current-route)]
-      [:a.c-black.text-decoration-none {:href (ui/url ctx (prev-month-url current-route))} ">"]]]))
-
-
-(defn render-gig-create [ctx gig]
-  (let [current-route (route> ctx)]
-    [:div.p2.bg-white.c-black.mb1.flex.flex-column.center
-     [:div.mb1
-      [-input {:placeholder "Gig Date"}]
-      [-input {:placeholder "Gig Start Time"}]
-      [-input {:placeholder "Gig End Time"}]]
-     [:div.fit.mx-auto.mb1
-      [-textarea]]
-     [:div.inline-block
-      [-btn-alt {:on-click #(ui/redirect ctx (dissoc current-route :detail))} "CANCEL"]
-      [-btn-default "ADD GIG"]]
-     [:div.center.mt2
-      [:a.c-cyan.condensed {:href "#"} "DELETE"]]]))
+      [:a.c-black.text-decoration-none {:href (ui/url ctx (next-month-url current-route))} ">"]]]))
 
 (defn gig-handler-menu [ctx gig]
   (let [current-route (route> ctx)
@@ -107,6 +96,7 @@
 (defn gig-employee-menu [ctx gig]
   (let [current-route (route> ctx)
         detail (:detail current-route)
+        route-id (:detail current-route)
         id (:id gig)]
     (into [-gig-menu]
           (cond
@@ -123,9 +113,13 @@
                 "EDIT"])]
             
             (gig/pending? gig)
-            [[-gig-menu-link
-              {:href (ui/url ctx (merge current-route {:detail id}))}
-              "SELECT"]]
+            [(if (= route-id id)
+               [-gig-menu-link
+                {:href (ui/url ctx (dissoc current-route :detail))}
+                "CLOSE"]
+               [-gig-menu-link
+                {:href (ui/url ctx (merge current-route {:detail id}))}
+                "SELECT"])]
 
             (gig/done? gig)
             [[-gig-menu-link
@@ -144,11 +138,11 @@
   (let [{:keys [id state title]} gig
         current-route (route> ctx)
         current-gig? (= (:id gig) (:id current-gig))
+        subpage (:subpage current-route)
         gig-employee ((:employee gig))]
- 
     [-gig {:class (class-names {:claimed (gig/claimed? gig) 
-                                :pending (gig/pending? gig)
-                                :done    (gig/done? gig)})}
+                                :pending (and (starts-in-future? (:startDatetime gig)) (gig/pending? gig))
+                                :done    (and (not (starts-in-future? (:startDatetime gig))) (gig/pending? gig))})}
      [:div.flex.justify-between.items-center
       [:div.h3.p1
        (if current-employee?

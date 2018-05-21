@@ -4,6 +4,7 @@
             [keechma.toolbox.forms.helpers :as forms-helpers]
             [keechma.toolbox.forms.core :as forms-core]
             [myra.ui.components.form-inputs :refer [controlled-input]]
+            [myra.ui.components.form-api-errors :as form-api-errors]
             [myra.ui.components.inputs :refer [-btn-default -btn-alt -login-modal]]))
 
 (defn render [ctx]
@@ -14,6 +15,7 @@
         subpage (:subpage current-route)]
     [-login-modal
      [:h1.c-black.h2 "Sign in below or create an account."]
+     [form-api-errors/render form-state]
      [:form.flex.justify-center.items-center.flex-column {:on-submit (:submit helpers)}
       [:div.flex.flex-wrap.center.justify-center
        [:div.mx0-5
@@ -22,7 +24,7 @@
        [:div.mx0-5
         [controlled-input
          {:form-state form-state :helpers helpers :placeholder "Password" :attr :password :input-type :password}]
-        [:div.left-align.pl1 [:a.c-cyan.h4.bold.mb2 {:href "#"} "Forgot password?"]]]]
+        [:div.left-align.pl1 [:a.c-cyan.h4.bold.mb2 {:href (ui/url ctx {:page "change-password" :subpage "edit"})} "Forgot password?"]]]]
       [:div.w-100.mt1
        [:div.mb1 [-btn-default "SIGN IN"]]]]
      [:a {:href (ui/url ctx {:page "register" :subpage subpage})} [-btn-alt "CREATE ACCOUNT"]]]))

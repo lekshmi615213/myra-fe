@@ -11,6 +11,12 @@
             [cljsjs.moment]
             [oops.core :refer [ocall]]))
 
+(defn prepend-gig [app-db gig]
+  (let [gigs (edb/get-collection app-db :gig :list)
+        gig-ids (set (map :id gigs))]
+    (if (contains? gig-ids (:id gig))
+      app-db
+      (edb/prepend-collection app-db :gig :list [gig]))))
 
 (defn date-to-iso [value]
   (ocall (js/moment value) "toISOString"))
@@ -18,7 +24,7 @@
 (defrecord GigForm [validator])
 
 (defn prepare-data [data]
-  {:gig (-> (select-keys data [:startDatetime :endDatetime :notes])
+  {:gig (-> (select-keys data [:startDatetime :endDatetime :notes :department])
             (update :startDatetime date-to-iso)
             (update :endDatetime date-to-iso))})
 
@@ -39,11 +45,11 @@
 (defmethod forms-core/on-submit-success GigForm [this app-db form-props data]
   (let [gig (get-in data [:gig :gig])]
     (pipeline! [value app-db]
-      (pp/commit! (edb/prepend-collection app-db :gig :list [gig]))
-      (pp/redirect! {:page "gigs" :subpage "future" :detail (:id gig)}))))
+      (pp/commit! (prepend-gig app-db gig))
+      (pp/redirect! {:page "gigs" :subpage "future"}))))
 
 (defn constructor []
   (->GigForm (v/to-validator {:startDatetime [:not-empty :future-date]
                               :endDatetime   [:not-empty :future-date :future-date-from-start]
-                              :notes          [:not-empty]})))
+                              :department    [:not-empty]})))
 

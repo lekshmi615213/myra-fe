@@ -58,14 +58,19 @@
        [-edit
         [:a.inline-block {:href (ui/url ctx {:page "profile" :subpage "edit"})}]]
        (if (= "edit" subpage)
-         [(ui/component ctx :form-profile)]
-         [render-details ctx profile])])))
+         [:div [(ui/component ctx :form-profile)]
+          [:hr.my2.border.border-top.bd-gray-l]]
+         [render-details ctx profile])
+       
+       (when (= "edit" subpage)
+         [(ui/component ctx :form-change-password)])])))
        
    
 
 (def component
   (ui/constructor {:renderer render
-                   :component-deps [:form-profile]
+                   :component-deps [:form-profile
+                                    :form-change-password]
                    :subscription-deps [:profile-page-profile
                                        :profile-page-profile-current?
                                        :image-upload-preview

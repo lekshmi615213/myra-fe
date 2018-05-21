@@ -4,6 +4,7 @@
             [keechma.toolbox.forms.helpers :as forms-helpers]
             [keechma.toolbox.forms.core :as forms-core]
             [myra.ui.components.form-inputs :refer [controlled-input controlled-select]]
+            [myra.ui.components.form-api-errors :as form-api-errors]
             [myra.ui.components.inputs :refer [-btn-default -btn-alt -login-modal]]))
 
 
@@ -18,22 +19,29 @@
      [:h1.c-black.h2 "Sign in below or create an account."]
      [:a {:href (ui/url ctx {:page "login" :subpage subpage})} [-btn-default "SIGN IN"]]
      [:h2.c-black.pt1.border-top.bd-grey-l "To create an account, fill in the content below."]
+     [form-api-errors/render form-state]
      [:form {:on-submit (:submit helpers)}
       [:div.flex.flex-wrap.justify-center.mt1
-       [:div.flex.flex-column.justify-center.items-center.mx0-5
-        [controlled-input
-         {:form-state form-state :helpers helpers :placeholder "Full Name" :attr :fullName}]
-        [controlled-input
-         {:form-state form-state :helpers helpers :placeholder "Email" :attr :email}]
-        [controlled-input
-         {:form-state form-state :helpers helpers :placeholder "Password" :attr :password :input-type :password}]]
-       [:div.flex.flex-column.justify-center.items-center.mx0-5
-        [controlled-input
-         {:form-state form-state :helpers helpers :placeholder "Confirm Password" :attr :password2 :input-type :password}]
-        [controlled-input
-         {:form-state form-state :helpers helpers :placeholder "Phone Number" :attr :phoneNumber}]
-        [controlled-select
-         {:form-state form-state :helpers helpers :label "Select Department" :attr :department :options department-options}]]]
+
+        [:div.flex.flex-row.justify-center.items-center.mx0-5.form-wrapper-item
+          [controlled-input
+            {:form-state form-state :helpers helpers :class "mx0-5" :placeholder "Full Name" :attr :fullName}]
+          [controlled-input
+            {:form-state form-state :helpers helpers :class "mx0-5" :placeholder "Email" :attr :email}]]
+
+        [:div.flex.flex-row.justify-center.items-center.mx0-5.form-wrapper-item
+          [controlled-input
+           {:form-state form-state :helpers helpers :class "mx0-5" :placeholder "Password" :attr :password :input-type :password}]
+          [controlled-input
+            {:form-state form-state :helpers helpers :class "mx0-5" :placeholder "Confirm Password" :attr :password2 :input-type :password}]]
+
+        [:div.flex.flex-row.justify-center.items-center.mx0-5.form-wrapper-item
+          [controlled-input
+            {:form-state form-state :helpers helpers :class "mx0-5" :placeholder "Phone Number" :attr :phoneNumber}]
+          [controlled-select
+            {:form-state form-state :helpers helpers :class "select-department mx0-5" :label "Select Department" :attr :department :options department-options}]]]
+
+
       [:div.mt2 [-btn-alt "CREATE ACCOUNT"]]]]))
 
 (def component

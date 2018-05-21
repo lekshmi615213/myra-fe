@@ -130,6 +130,9 @@
                 [:a.text-decoration-none.h3.mobile
                   {:href (ui/url ctx {:page "profile"})} "Account settings"]]]]]))))
 
+(defn render-user-full-name [account]
+  (when account
+    (str "(" (:fullName ((:profile account))) ")")))
 
 (defn render [ctx]
   (let [current-route (route> ctx)
@@ -150,8 +153,8 @@
          {:href (ui/url ctx {:page "profile"})} "Account settings"]]
        [-nav-li  {:class (class-names {:active (active-profile? current-route)})}
         [:a.text-decoration-none.h3.desktop
-         {:href (ui/url ctx {:page "logout"})}"Logout " 
-         [:span {:style {:font-size "70%"}} (str "(" (:email current-account) ) ")"]]]]]]))
+         {:href (ui/url ctx {:page "logout"})}"Logout "
+         [:span {:style {:font-size "70%"}}  (render-user-full-name current-account)]]]]]]))
 
 (def component
   (ui/constructor {:renderer render

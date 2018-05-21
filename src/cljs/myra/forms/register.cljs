@@ -25,7 +25,7 @@
     nil))
 
 (defmethod forms-core/submit-data RegisterForm [_ app-db _ data]
-  (gql-req gql/register-m (-> data 
+  (gql-req gql/register-m (-> data
                               (determine-profile-type app-db)
                               (prepare-data))))
 
@@ -38,10 +38,12 @@
                       (edb/insert-named-item :account :current account)))
       (pp/redirect! {}))))
 
-(defn constructor [] 
-  (->RegisterForm (v/to-validator {:email       [:not-empty :email]
+(defn constructor []
+  (->RegisterForm (v/to-validator {
+                                   :email       [:not-empty :email]
                                    :password    [:not-empty :ok-password :password-confirmation]
                                    :password2   [:not-empty :ok-password :password-confirmation]
                                    :fullName    [:not-empty]
                                    :department  [:not-empty]
-                                   :phoneNumber [:not-empty]})))
+                                   :phoneNumber [:not-empty :phone]
+                                   })))

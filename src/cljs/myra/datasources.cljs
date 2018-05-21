@@ -52,7 +52,8 @@
                           ["operating_room" "Operating Room"]
                           ["post_anaesthesia_care_unit" "PACU"]
                           ["labor_and_delivery" "Labor and Delivery"]
-                          ["mother_baby" "Mother and Baby"]])) reqs))
+                          ["mother_baby" "Mother and Baby"]
+                          ["staffing_office" "Staffing Office"]])) reqs))
    :params (fn [_ _ _])})
 
 (defn build-future-gigs-params [jwt]
