@@ -123,6 +123,24 @@
              :font-family "Source Sans Pro"
              :border-radius "5px"
              :background-color "rgba(255,255,255,0.8)"}])
+
+(defelement -forgot-password-modal
+    :tag :div
+    :class [:max-width-4 :center :p2]
+    :style [{:width "100%"
+             :margin "0 5px"
+             :font-family "Source Sans Pro"
+             :border-radius "5px"
+             :background-color "rgba(255,255,255,0.8)"}])
+
+(defelement -new-password-modal
+    :tag :div
+    :class [:max-width-4 :center :p2]
+    :style [{:width "100%"
+             :margin "0 5px"
+             :font-family "Source Sans Pro"
+             :border-radius "5px"
+             :background-color "rgba(255,255,255,0.8)"}])
              
 
 (defelement -select

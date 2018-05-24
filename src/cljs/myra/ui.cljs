@@ -11,6 +11,8 @@
             [myra.ui.forms.gig :as form-gig]
             [myra.ui.forms.message :as form-message]
             [myra.ui.forms.change-password :as form-change-password]
+            [myra.ui.forms.forgot-password :as form-forgot-password]
+            [myra.ui.forms.new-password :as form-new-password]
             [myra.ui.components.gig-details :as gig-details]
             [myra.ui.components.modal :as modal]
             [myra.ui.modals.cancel-gig :as modal-cancel-gig]
@@ -31,6 +33,8 @@
    :form-gig             form-gig/component
    :form-message         form-message/component
    :form-change-password form-change-password/component
+   :form-forgot-password form-forgot-password/component   
+   :form-new-password    form-new-password/component
    :gig-details          gig-details/component
    :modal                modal/component
    :modal-cancel-gig     modal-cancel-gig/component

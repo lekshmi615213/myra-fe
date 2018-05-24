@@ -51,6 +51,8 @@
       (case page
         "login" [(ui/component ctx :form-login)]
         "register" [(ui/component ctx :form-register)]
+        "forgot-password" [(ui/component ctx :form-forgot-password)]
+        "new-password" [(ui/component ctx :form-new-password)]
         nil)
       nil)
     [:a.mt1 {:href (ui/url ctx {:page "login" :subpage "handler"})} 
@@ -59,6 +61,8 @@
       (case page
         "login" [(ui/component ctx :form-login)]
         "register" [(ui/component ctx :form-register)]
+        "forgot-password" [(ui/component ctx :form-forgot-password)]
+        "new-password" [(ui/component ctx :form-new-password)]
         nil)
       nil)])
 
@@ -72,6 +76,8 @@
       (case page
         "login" [(ui/component ctx :form-login)]
         "register" [(ui/component ctx :form-register)]
+        "forgot-password" [(ui/component ctx :form-forgot-password)]
+        "new-password" [(ui/component ctx :form-new-password)]
         nil)
       nil)])            
 
@@ -89,4 +95,6 @@
 (def component
   (ui/constructor {:renderer render
                    :component-deps [:form-login
-                                    :form-register]}))
+                                    :form-register
+                                    :form-forgot-password
+                                    :form-new-password]}))
