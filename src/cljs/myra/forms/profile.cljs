@@ -48,6 +48,6 @@
 
 (defn constructor []
   (->ProfileForm (v/to-validator {:email       [:not-empty :email]
-                                  :fullName    [:not-empty]
+                                  :fullName    [:not-empty :valid-fullname]
                                   :department  [:not-empty]
                                   :phoneNumber [:not-empty :phone]})))
