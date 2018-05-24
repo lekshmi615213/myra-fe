@@ -77,7 +77,10 @@
         (= 4 (count v)))
     true))
 
-
+(defn valid-fullname? [v _ _]
+  (if (seq v)
+    (< 2 (count v))
+    true))
 
 
 
@@ -126,6 +129,8 @@
                            :validator valid-state?}
    :valid-zipcode         {:message   "Not a valid Zipcode"
                            :validator valid-zipcode?}
+   :valid-fullname         {:message   "Are you sure you entered your name correctly?"
+                           :validator valid-fullname?}
 
    :0>                     {:message   "Must be bigger than zero"
                             :validator (fn [v _ _]

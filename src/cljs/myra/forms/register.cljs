@@ -43,7 +43,7 @@
                                    :email       [:not-empty :email]
                                    :password    [:not-empty :ok-password :password-confirmation]
                                    :password2   [:not-empty :ok-password :password-confirmation]
-                                   :fullName    [:not-empty]
+                                   :fullName    [:not-empty :valid-fullname]
                                    :department  [:not-empty]
                                    :phoneNumber [:not-empty :phone]
                                    })))
