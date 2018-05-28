@@ -52,7 +52,7 @@
         "login" [(ui/component ctx :form-login)]
         "register" [(ui/component ctx :form-register)]
         "forgot-password" [(ui/component ctx :form-forgot-password)]
-        "new-password" [(ui/component ctx :form-new-password)]
+        "reset-password" [(ui/component ctx :form-new-password)]
         nil)
       nil)
     [:a.mt1 {:href (ui/url ctx {:page "login" :subpage "handler"})} 
@@ -62,7 +62,7 @@
         "login" [(ui/component ctx :form-login)]
         "register" [(ui/component ctx :form-register)]
         "forgot-password" [(ui/component ctx :form-forgot-password)]
-        "new-password" [(ui/component ctx :form-new-password)]
+        "reset-password" [(ui/component ctx :form-new-password)]
         nil)
       nil)])
 
@@ -77,7 +77,7 @@
         "login" [(ui/component ctx :form-login)]
         "register" [(ui/component ctx :form-register)]
         "forgot-password" [(ui/component ctx :form-forgot-password)]
-        "new-password" [(ui/component ctx :form-new-password)]
+        "reset-password" [(ui/component ctx :form-new-password)]
         nil)
       nil)])            
 

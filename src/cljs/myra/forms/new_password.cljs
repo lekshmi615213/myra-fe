@@ -12,20 +12,20 @@
 
 (defrecord NewPasswordForm [validator])
 
-(defn prepare-data [data]
-  (select-keys data [:password :newPassword]))
+(defn prepare-data [data app-db]
+  (select-keys data [:password :newPassword])
+  (let [subpage (get-in app-db [:route :data :detail])]
+    (assoc data :passwordResetKey subpage))  
+)
 
 (defmethod forms-core/submit-data NewPasswordForm [_ app-db _ data]
-  (gql-req gql/new-password-m (prepare-data data) (get-in app-db [:kv :jwt])))
+  (gql-req gql/reset-password-m (prepare-data data app-db) (get-in app-db [:kv :jwt])))
 
 (defmethod forms-core/on-submit-success NewPasswordForm [this app-db form-props data]
-  (let [changed? (get-in data [:newPassword])]
+  (let [changed? (get-in data [:resetPassword])]
     (pipeline! [value app-db]
-      (if changed?
-        (pp/redirect! {:page "profile"})
-        (js/alert "There was a problem with the password update. Please try again!")
-        ))))
+      )))
 
 (defn constructor [] 
   (->NewPasswordForm (v/to-validator {:password [:not-empty :ok-password :password-confirmation]
-                                         :newPassword [:not-empty :ok-password :password-confirmation]})))
+                                         :password2 [:not-empty :ok-password :password-confirmation]})))

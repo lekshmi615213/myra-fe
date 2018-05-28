@@ -5,6 +5,7 @@
             [keechma.toolbox.forms.core :as forms-core]
             [myra.ui.components.form-inputs :refer [controlled-input]]
             [myra.ui.components.form-api-errors :as form-api-errors]
+            [myra.ui.components.form-api-success :as form-api-success]
             [myra.ui.components.inputs :refer [-btn-default -btn-alt -forgot-password-modal]]))
 
 (defn render [ctx]
@@ -16,6 +17,7 @@
     [-forgot-password-modal
      [:h1.c-black.h2 "Enter your email address."]
      [form-api-errors/render form-state]
+     [form-api-success/render form-state "Sent an email with reset link"] 
      [:form.flex.justify-center.items-center.flex-column {:on-submit (:submit helpers)}
       [:div.flex.flex-wrap.center.justify-center
        [:div.mx0-5
@@ -24,8 +26,8 @@
 
       [:div.w-100.mt1
       [:div.mb1 
-      [:a {:href (ui/url ctx {:page "new-password" :subpage "qwertyuiop"})}[-btn-default "SUBMIT"]]]]]
-     [:a {:href (ui/url ctx {:page "register" :subpage subpage})} [-btn-alt "CREATE ACCOUNT"]]]))
+      [:a {:href (ui/url ctx {:page "reset-password" :subpage ""})}[-btn-default "SUBMIT"]]]]]
+     ]))
 
 (def component
   (ui/constructor {:renderer render

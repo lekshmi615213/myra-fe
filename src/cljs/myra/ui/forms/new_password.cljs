@@ -5,6 +5,7 @@
             [keechma.toolbox.forms.core :as forms-core]
             [myra.ui.components.form-inputs :refer [controlled-input]]
             [myra.ui.components.form-api-errors :as form-api-errors]
+            [myra.ui.components.form-api-success :as form-api-success]
             [myra.ui.components.inputs :refer [-btn-default -btn-alt-small -new-password-modal]]
            ))
 
@@ -16,14 +17,17 @@
         subpage (:subpage current-route)]
   [-new-password-modal
     [:div.mt2
-    [form-api-errors/render form-state]
+     [:h1.c-black.h2 "Create new password."]
+     [form-api-errors/render form-state]
+     [form-api-success/render form-state "Successfully changed password."] 
      [:form.flex.flex-column.justify-center.items-center {:on-submit (:submit helpers)}
       [:div {:style {:min-width "320px"}}
-
+       [controlled-input
+        {:form-state form-state :helpers helpers :placeholder "New Password" :attr :passwordResetKey :input-type :hidden :value "$2b$12$JyQtUMFvG6z7QeknKSyXg.0D6wDfLpPKrnHXTE3pEgSYgDnYoqSBy"}]
        [controlled-input
         {:form-state form-state :helpers helpers :placeholder "New Password" :attr :password :input-type :password}]
        [controlled-input
-        {:form-state form-state :helpers helpers :placeholder "Confirm Password" :attr :newPassword :input-type :password}]]
+        {:form-state form-state :helpers helpers :placeholder "Confirm Password" :attr :password2 :input-type :password}]]
       [:div.mt2.flex.flex-1.items-center.justify-center.w-100
        [-btn-default "CHANGE PASSWORD"]]]]]))
 

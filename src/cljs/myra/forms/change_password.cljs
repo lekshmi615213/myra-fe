@@ -28,4 +28,4 @@
 
 (defn constructor [] 
   (->ChangePasswordForm (v/to-validator {:password [:not-empty]
-                                         :newPassword [:not-empty :ok-password]})))
+                                         :password2 [:not-empty :ok-password]})))

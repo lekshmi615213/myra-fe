@@ -30,4 +30,4 @@
 (def update-profile-m (get-mutation q-map :update-profile))
 (def delete-gig-m (get-mutation q-map :delete-gig))
 (def forgot-password-m (get-mutation q-map :forgot-password))
-(def new-password-m (get-mutation q-map :new-password))
+(def reset-password-m (get-mutation q-map :reset-password))

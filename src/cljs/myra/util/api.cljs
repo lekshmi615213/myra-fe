@@ -27,7 +27,6 @@
   ([query-fn variables] (gql-req query-fn variables nil))
   ([query-fn variables token]
    (let [{:keys [graphql unpack]} (query-fn variables)]
-   (println 'in')
      (->> (POST gql-endpoint
                 {:format :json
                  :params graphql

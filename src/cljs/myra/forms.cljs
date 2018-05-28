@@ -34,9 +34,8 @@
                       (when (and (= "profile" page)
                                  (= "edit" subpage))
                         :form))
-   :new-password (fn [{:keys [page subpage]}]
-                      (when (and (= "new-password" page)
-                                 (= "qwertyuiop" subpage))
+   :new-password (fn [{:keys [page]}]
+                      (when (= "reset-password" page)
                         :form))
    :gig (fn [{:keys [page subpage detail]}]
           (when (and (= "gigs" page)

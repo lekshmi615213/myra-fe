@@ -16,12 +16,17 @@
 	[:select {:margin-bottom "5px"}]
   ]
   [:.error-message {:margin "0"}]
-  [:.api-error-message {
-	:margin-bottom ".67em"
+  [:.status-message {
+  	:margin-bottom ".67em"
 	:margin-top ".67em"
 	:display "flex"
 	:justify-content "center"
+  }]
+  [:.api-error-message {
 	:color "red"
   }]
+  [:.api-success-message {
+	:color "green"
+  }]  
 ]
 )

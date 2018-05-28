@@ -16,17 +16,13 @@
 (defmethod forms-core/submit-data ForgotPasswordForm [_ app-db _ data]
 (println data)
   (pipeline! [value app-db]
-  (println 'in')
     (gql-req gql/forgot-password-m (prepare-data data))
     (rescue! [error])))
 
 (defmethod forms-core/on-submit-success ForgotPasswordForm [this app-db form-props data]
   (let [changed? (get-in data [:forgotPassword])]
     (pipeline! [value app-db]
-      (if changed?
-        (js/alert "Sent an email to reset password!")
-        (js/alert "Email not found!")
-        ))))
+      )))
 
 (defn constructor []
   (->ForgotPasswordForm (v/to-validator {:email [:not-empty :email]})))

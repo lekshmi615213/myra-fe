@@ -162,3 +162,11 @@ fragment messageFields on Message {
 mutation ChangePassword($password: String!, $newPassword: String!) {
   changePassword(password: $password, newPassword: $newPassword)
 }
+
+mutation ForgotPassword($email: String!) {
+ forgotPassword(email: $email)
+}
+
+mutation resetPassword($password: String!, $passwordResetKey: String!) {
+ resetPassword(password: $password, passwordResetKey: $passwordResetKey)
+}

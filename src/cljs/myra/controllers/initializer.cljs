@@ -4,7 +4,7 @@
             [keechma.toolbox.dataloader.controller :as dataloader-controller]
             [myra.edb :as edb]))
 
-(def logged-out-pages #{"register" "login" "logout" "forgot-password" "new-password"})
+(def logged-out-pages #{"register" "login" "logout" "forgot-password" "reset-password"})
 
 (defn redirect-or-initialize! [app-db]
   (let [current-account (edb/get-named-item app-db :account :current)

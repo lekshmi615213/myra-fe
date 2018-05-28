@@ -11,5 +11,5 @@
   (def causeObj (read-string causeStr))
   (def message (:message causeObj))
   (if message
-	[:span.api-error-message message] 
+	[:span.api-error-message.status-message message] 
 )))
