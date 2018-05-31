@@ -16,6 +16,7 @@
     [-login-modal
      [:h1.c-black.h2 "Sign in below or create an account."]
      [form-api-errors/render form-state]
+     [:span#login-error.api-error-message.status-message]
      [:form.flex.justify-center.items-center.flex-column {:on-submit (:submit helpers)}
       [:div.flex.flex-wrap.center.justify-center
        [:div.mx0-5
