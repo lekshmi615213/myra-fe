@@ -4,12 +4,11 @@
   ))
 
 (defn render [form-state]
-  (let [state (:state form-state)]  
-  (def cause (:cause state))
+  (let [cause (get-in form-state [:state :cause])] 
   (def causeStr (pr-str cause))
   (def causeStr (str/replace causeStr #"#error " ""))
   (def causeObj (read-string causeStr))
   (def message (:message causeObj))
   (if message
-	[:span.api-error-message.status-message message] 
+	  [:span.api-error-message.status-message message] 
 )))

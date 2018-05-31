@@ -4,8 +4,7 @@
   ))
 
 (defn render [form-state message]
-  (let [state (:state form-state)] 
-    (def type (:type state))
+  (let [type (get-in form-state [:state :type])] 
     (def typeStr (pr-str type))
     (when (= ":submitted" typeStr)
       [:span.api-success-message.status-message message]
