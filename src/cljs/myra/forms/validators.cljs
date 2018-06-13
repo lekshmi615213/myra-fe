@@ -57,7 +57,8 @@
   (if (seq v)
     (
     and (re-matches #"^\d+$" v)
-        (= 8 (count v))
+        (< 7 (count v))
+        (> 11 (count v))
     )
     true))
 
