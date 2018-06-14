@@ -4,6 +4,7 @@
             [myra.forms.profile :as profile]
             [myra.forms.gig :as gig]
             [myra.forms.message :as message]
+            [myra.forms.change-password :as change-password]
             [myra.forms.forgot-password :as forgot-password]
             [myra.forms.new-password :as new-password]))
 
@@ -13,6 +14,7 @@
    :profile         (profile/constructor)
    :gig             (gig/constructor)
    :message         (message/constructor)
+   :change-password (change-password/constructor)
    :forgot-password (forgot-password/constructor)
    :new-password    (new-password/constructor)})
 

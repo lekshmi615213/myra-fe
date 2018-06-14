@@ -23,9 +23,9 @@
     (pipeline! [value app-db]
       (if changed?
         (pp/redirect! {:page "profile"})
-        (js/alert "There was a problem with the password update. Please try again!")
+        (js/alert "The old password you have entered is incorrect. Please try again!")
         ))))
 
 (defn constructor [] 
   (->ChangePasswordForm (v/to-validator {:password [:not-empty]
-                                         :password2 [:not-empty :ok-password]})))
+                                         :newPassword [:not-empty :ok-password]})))

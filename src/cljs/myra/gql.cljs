@@ -31,3 +31,4 @@
 (def delete-gig-m (get-mutation q-map :delete-gig))
 (def forgot-password-m (get-mutation q-map :forgot-password))
 (def reset-password-m (get-mutation q-map :reset-password))
+(def change-password-m (get-mutation q-map :change-password))
