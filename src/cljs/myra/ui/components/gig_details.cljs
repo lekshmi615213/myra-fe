@@ -16,12 +16,10 @@
        [:p.center (:notes gig)]
        [:div.flex.justify-center
         (when (gig/claimed? gig)
-          [-btn-alt {:on-click #(<cmd ctx [:employee-gig-actions :cancel] nil)} "CANCEL"])
+          [-btn-alt {:on-click #(<cmd ctx [:employee-gig-actions :cancel] nil)} "REMOVE"])
         (when (gig/pending? gig)
           [-btn-default {:on-click #(<cmd ctx :claim id)} "ADD GIG"])]
-       (when (gig/claimed? gig)
-         [:div.center.mt2
-          [:a.c-cyan.condensed {:href (ui/url ctx {:page "messages" :subpage "thread" :detail id})} "MESSAGE HANDLER"]])])))
+      ])))
 
 (def component
   (ui/constructor {:renderer render

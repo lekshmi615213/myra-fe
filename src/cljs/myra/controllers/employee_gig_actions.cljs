@@ -9,10 +9,14 @@
   (pp-controller/constructor
    (fn [route] true)
    {:claim (pipeline! [value app-db]
+            (println 'claim')
              (gql-req gql/claim-gig-m {:id value} (get-in app-db [:kv :jwt]))
-             (pp/commit! (edb/insert-item app-db :gig (get-in value [:gig :gig]))))
+             (pp/commit! (edb/insert-item app-db :gig (get-in value [:gig :gig])))
+             (pp/redirect! {:page "gigs" :subpage "future"})
+             )
     :cancel (pipeline! [value app-db]
               (gql-req gql/cancel-claimed-gig-m {:id (get-in app-db [:route :data :detail])} (get-in app-db [:kv :jwt]))
               (pp/commit! (edb/insert-item app-db :gig (get-in value [:gig :gig])))
+              (pp/redirect! {:page "gigs" :subpage "future"})
               (rescue! [error]
-                (pp/send-command! [:modal :toggle] :modal-late-gig)))}))
+                (pp/send-command! [:modal :toggle] :modal-late-gig) ))}))
